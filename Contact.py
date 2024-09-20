@@ -240,6 +240,7 @@ class Contact:
             -1 if name value of c1 < c2.
         """
         # Complete this method
+        print("Hello World")
         return -1
     
     @staticmethod
