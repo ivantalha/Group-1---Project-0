@@ -51,7 +51,7 @@ def showMenu(target: str, inline :int = None):
         inline (int): If not none, then will create an inline menu with n items each.
     """
     print("\n<-----Menu----->")
-    i = 1 if inline != None else None
+    i = 1 if inline != None else None # Start the item counter if inline is provided
     for menu in MENUS[target]:
         out = "[{}]".format(menu)
         if inline != None and i == inline:
