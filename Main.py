@@ -78,27 +78,26 @@ def receiveContactInfo() -> Contact:
     return Contact(stdn,fname,lname,occupation,gender,cc,area,number)
 
 def prompt(phrase: str) -> str:
-    """Prompts an input to the user
-
+    """Prompts user for input.
+    
     Args:
-        phrase (str): Input phrase.
-
+        phrase (str): The input prompt.
+        
     Returns:
-        str : Returns a string type of inputted value.
+        str: The user's input.
     """
     return input(phrase)
 
 def convertChoices(choices: list) -> list:
-    """Converts choices from the phonebook menu
-    into proper country code value for accuracy purposes.
-
+    """Converts menu choices into proper country code values.
+    
     Args:
-        choices (list): Choices selected by user during prompt.
-
+        choices (list): List of user-selected choices.
+        
     Returns:
-        list: Converted values of choices.
+        list: List of converted country code values.
     """
-    for i in range(0, len(choices)):
+    for i in range(len(choices)):
         match choices[i]:
             case 1:
                 choices[i] = 856
@@ -106,7 +105,7 @@ def convertChoices(choices: list) -> list:
                 choices[i] = 855
             case 3:
                 choices[i] = 66
-            case 4: 
+            case 4:
                 choices[i] = 84
             case 5:
                 choices[i] = 60
@@ -123,11 +122,14 @@ def convertChoices(choices: list) -> list:
             case 11:
                 choices[i] = 65
     return choices
-                
 
-if __name__ == "__main__":
-    pb = ContactList()
-    while True:
-        showMenu("main")
-        opt = int(input("Select Operation: "))
-        # Complete your code here
+def handleAddContact(pb: ContactList):
+    """Handles the addition of a new contact to the phonebook.
+    
+    Args:
+        pb (ContactList): The ContactList instance to add the contact to.
+    """
+    print("Add a New Contact")
+    contact = receiveContactInfo()
+    pb.insert(contact)
+    print("Contact added successfully!")
