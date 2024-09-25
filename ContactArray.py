@@ -77,7 +77,9 @@ class ContactList:
         """Gets the contact based on surname. Will return None if contact is not found.
         """
         # Complete this Method
-        return 
+        
+        matching_contacts = [contact for contact in self.phonebook if contact and contact.getLName() == surname]
+        return matching_contacts
     
     def isEmpty(self) -> bool:
         """
