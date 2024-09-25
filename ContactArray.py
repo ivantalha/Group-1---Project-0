@@ -24,7 +24,9 @@ class ContactList:
             Returns none if the list is empty.
         """
         # Complete this Method
-        return 
+        if self.isEmpty():
+            return None
+        return self.phonebook[0]
     
     def getLast(self) -> Contact:
         """
@@ -32,7 +34,10 @@ class ContactList:
             Returns none if the list is empty.
         """
         # Complete this Method
-        return 
+        
+        if self.isEmpty():
+            return None
+        return self.phonebook[self.getSize() - 1]
 
     def getContactAtIndex(self, index: int) -> Contact:
         """Gets the contact at given index in the contact linked list.
