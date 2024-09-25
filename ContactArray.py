@@ -138,7 +138,14 @@ class ContactList:
             Contact: Deleted contact, if found.
         """
         # Complete this Method
-        return 
+        for i in range(self.size):
+            if self.phonebook[i] and self.phonebook[i].getStudentNumber() == stdn:
+                deleted_contact = self.phonebook[i]
+                self.__adjustPhonebook(i, self.size - 1, dir="f")
+                self.phonebook[self.size - 1] = None
+                self.decrSize()
+                return deleted_contact
+        return None
         
     def __sort(self, by: str) -> list:
         """
