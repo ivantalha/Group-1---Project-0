@@ -63,7 +63,15 @@ class ContactList:
             Contact: Contact information.
         """
         # Complete this Method
-        return 
+        
+        for contact in self.phonebook:
+            if contact == None:
+                continue
+            
+            if contact.getStudentNumber() == student_num:
+                return contact
+            
+        return None
     
     def getContactBySurname(self, surname: str) -> Contact:
         """Gets the contact based on surname. Will return None if contact is not found.
