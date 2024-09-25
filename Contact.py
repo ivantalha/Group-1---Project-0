@@ -150,7 +150,7 @@ class Contact:
                 attr (str): Attribute of this object to retrieve from.
         """
         # Optionally complete this method for up to 2 additional points in your MTE.
-        return -1
+        return getattr(self, attr, -1)
         
     def setStudentNumber(self, new_stdn: str) -> None:
         """Sets a new student number of this contact.
@@ -240,7 +240,22 @@ class Contact:
             -1 if name value of c1 < c2.
         """
         # Complete this method
-        return -1
+        
+        # Determine which names to compare
+        if comparison_type == 0:
+            name1, name2 = c1.lname, c2.lname
+        elif comparison_type == 1:
+            name1, name2 = c1.fname, c2.fname
+        else:
+            return 0
+        
+        # Compare the selected names
+        if name1 > name2:
+            return 1
+        elif name1 < name2:
+            return -1
+        else:
+            return 0
     
     @staticmethod
     def compare(c1: 'Contact', c2: 'Contact', modifier: str) -> int:
@@ -259,7 +274,20 @@ class Contact:
         # in comparing attribute values (used in completing another bonus part of the project)
         
         # Bonus points may receive up to 3 points in your MTE.
-        return -1
+        
+        val1 = getattr(c1, modifier, None)
+        val2 = getattr(c2, modifier, None)
+        
+        if val1 is None or val2 is None:
+            print(f"Invalid attribute '{modifier}' for comparison.")
+            return 0
+
+        if val1 > val2:
+            return 1
+        elif val1 < val2:
+            return -1
+        else:
+            return 0
         
     def __str__(self) -> str:
         """Returns a string representation of this contact."""
