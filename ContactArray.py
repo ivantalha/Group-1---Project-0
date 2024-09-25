@@ -125,7 +125,14 @@ class ContactList:
                 "b" -> Backward indexing adjustment. For example, elemet at index 1 takes the value of the element at index 0.
         """
         # Complete this Method
-        return 
+        for i in range(self.size):
+            if self.phonebook[i] and self.phonebook[i].getStudentNumber() == stdn:
+                deleted_contact = self.phonebook[i]
+                self.__adjustPhonebook(i, self.size - 1, dir="f")
+                self.phonebook[self.size - 1] = None
+                self.decrSize()
+                return deleted_contact
+        return None 
     
     def deleteContact(self, stdn: str) -> Contact:
         """Finds the contact based on their student number.
