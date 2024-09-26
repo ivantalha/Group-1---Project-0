@@ -131,3 +131,131 @@ if __name__ == "__main__":
         showMenu("main")
         opt = int(input("Select Operation: "))
         # Complete your code here
+        if opt == 1:
+            pass
+
+        elif opt == 2:
+            # Check if the phonebook is empty 
+            if pb.size == 0:
+                print("Phonebook is empty. Add a contact first.")
+            else:
+                while True:
+                    showMenu("edit")
+                    try:
+                        edit_opt = int(input("Select Edit Operation: "))
+                        if edit_opt not in range(1, 9):
+                            print("Invalid option. Please select a number between 1 and 8.")
+                            continue
+                    except ValueError:
+                        print("Invalid input. Please enter a valid integer.")
+                        continue
+
+                    if edit_opt == 8:
+                        print("Going back to the main menu.")
+                        break
+
+                    stdn = input("Enter student number to edit: ")
+
+                    try:
+                        stdn = int(stdn)
+                    except ValueError:
+                        print("Invalid input. Please enter a numeric student number.")
+                        continue
+
+                    contact = pb.getContact(stdn)
+
+                    if contact is None:
+                        print("DEBUG: Contact not found with student number {}".format(stdn))
+                        print("DEBUG: Available contacts in the phonebook:")
+                        for c in pb.phonebook:
+                            print(c)
+                        print("Contact not found. Returning to the main menu.")
+                        break  
+
+                    # Store the original values for comparison if their are changes
+                    original_values = {
+                        "student_number": contact.getStudentNumber(),
+                        "last_name": contact.getLName(),
+                        "gender": contact.getGender(),
+                        "occupation": contact.getOccupation(),
+                        "country_code": contact.getNumericCountryCode(),
+                        "area_code": contact.getAreaCode(),
+                        "contact_number": contact.getContactNumber()
+                    }
+
+                    # Edit operation based on user selection
+                    if edit_opt == 1:
+                        # Edit student number
+                        new_stdn = input("Enter new student number: ")
+                        contact.setStudentNumber(new_stdn)
+                    
+                    elif edit_opt == 2:
+                        # Edit last name
+                        new_lname = input("Enter new last name: ")
+                        contact.setLName(new_lname)
+                    
+                    elif edit_opt == 3:
+                        # Edit gender
+                        new_gender = input("Enter new gender: ").capitalize()
+                        if new_gender not in ["M", "F"]:
+                            print("Sorry, that is an invalid value for gender.")
+                            continue 
+                        else:
+                            contact.setGender(new_gender)
+                    
+                    elif edit_opt == 4:
+                        # Edit occupation
+                        new_occupation = input("Enter new occupation: ")
+                        contact.setOccupation(new_occupation)
+                    
+                    elif edit_opt == 5:
+                        # Edit country code
+                        new_cc = input("Enter new country code: ")
+                        try:
+                            new_cc = int(new_cc)
+                            contact.setCountryCode(new_cc)
+                        except ValueError:
+                            print("Invalid input. Please enter a numeric country code.")
+                            continue
+                    
+                    elif edit_opt == 6:
+                        # Edit area code
+                        new_area = input("Enter new area code: ")
+                        try:
+                            new_area = int(new_area)
+                            contact.setAreaCode(new_area)
+                        except ValueError:
+                            print("Invalid input. Please enter a numeric area code.")
+                            continue
+                    
+                    elif edit_opt == 7:
+                        # Edit contact number
+                        new_number = input("Enter new number: ")
+                        try:
+                            new_number = int(new_number)
+                            contact.setContactNumber(new_number)
+                        except ValueError:
+                            print("Invalid input. Please enter a numeric contact number.")
+                            continue
+                    else:
+                        print("Invalid option.")
+
+                    # Compare original values with the updated values
+                    if original_values != {
+                        "student_number": contact.getStudentNumber(),
+                        "last_name": contact.getLName(),
+                        "gender": contact.getGender(),
+                        "occupation": contact.getOccupation(),
+                        "country_code": contact.getNumericCountryCode(),
+                        "area_code": contact.getAreaCode(),
+                        "contact_number": contact.getContactNumber()
+                    }:
+                        # If changes were made
+                        print("Edited contact:", contact)
+                    else:
+                        # If no changes were made
+                        print("No changes were made!")
+
+                    break
+        
+        # elif opt == 3:            
