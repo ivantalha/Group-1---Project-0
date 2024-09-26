@@ -277,3 +277,67 @@ if __name__ == "__main__":
                     print("Deleted contact:", deleted_contact)
                 else:
                     print("Contact not found.")
+
+        elif opt == 4:
+            if pb.size == 0:
+                print("Phonebook is empty. Add a contact first.")
+            else:
+                showMenu("views")
+                view_opt = int(input("Select View Operation: "))
+                if view_opt == 1:
+                    selected_countries = set()  
+
+                    while True:
+                        print("From which country?:")
+                        showMenu("cc", inline=3)
+                        cc_opt = int(input("Enter choice (0 to exit): "))
+
+                        if cc_opt == 0:
+                            break  
+                        elif 1 <= cc_opt <= 12:
+                            selected_countries.add(cc_opt)  
+                            converted_countries = convertChoices(list(selected_countries))  
+                            filtered_contacts = [contact for contact in pb.phonebook if contact and contact.getNumericCountryCode() in converted_countries]
+
+                            if not filtered_contacts:
+                                print("No contacts found for the selected countries.")
+                            else:
+                        
+                                filtered_contacts.sort(key=Contact.getLName)
+
+                                print(f"\nHere are the students from the selected countries:\n")
+                                for contact in filtered_contacts:
+                                    print(contact)
+
+                        else:
+                            print("Invalid choice. Please try again.")
+                    print("\nGoing back to the search menu.")
+
+
+                
+                elif view_opt == 2:
+                    # Search by surname
+                    surname = input("Enter surname to search: ")
+                    matching_contacts = pb.getContactBySurname(surname)
+
+                    if matching_contacts:
+                        print("Contacts with the surname '{}':".format(surname))
+                        for contact in matching_contacts:
+                            print(contact)
+                    else:
+                        print("No contacts found with the surname '{}'.".format(surname))
+
+                elif view_opt == 3:
+                    # View all
+                    print(pb)
+                elif view_opt == 4:
+                    # Go back to main menu
+                    pass
+                else:
+                    print("Invalid option.")
+
+        elif opt == 5:
+            # Exit
+            break
+        else:
+            print("Invalid option.")
