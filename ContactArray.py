@@ -45,7 +45,21 @@ class ContactList:
             Contact: Contact at index.
         """
         # Complete this Method
-        return 
+        if index < 0 or index >= self.size:
+            return None
+        return self.phonebook[index]
+
+    def getContact(self, student_num: str) -> Contact:
+        """Gets the contact based on given student number. Will return None
+        if contact is not found.
+
+        Args:
+            student_num (str): Student number to base search from.
+
+        Returns:
+            Contact: Contact information.
+        """
+        # Complete this method
     
     def getContact(self, student_num: str) -> Contact:
         """Gets the contact based on given student number. Will return None
@@ -99,11 +113,19 @@ class ContactList:
             c (Contact): Contact to be inserted.
         """
         # Complete this Method
-        return 
+        
+        # Check if the phonebook has enough capacity to insert a new contact
+        if self.size >= len(self.phonebook):
+            self.__increasePhonebookSize()  # Increase size if full
+        
+        insert_index = self.__findIndexInsertion(c)
+        self.__adjustPhonebook(insert_index, self.size, dir="b")
+        self.phonebook[insert_index] = c
+        self.incrSize()
 
     def __findIndexInsertion(self, c: Contact) -> int:
-        """Finds the index to insert from based on contact's
-        last name, and first name if both have the same first names.
+        """Finds the index to insert based on contact's
+        last name, and first name if both have the same last names.
 
         Args:
             c (Contact): Contact to compare and to be inserted.
@@ -111,8 +133,18 @@ class ContactList:
         Returns:
             int: Node insertion point for new contact.
         """
-        # Complete this Method
-        return 
+        # Complete this Method 
+        
+        for i in range(self.size):
+            # Compare the last names first
+            comparison = Contact.compareNames(c, self.phonebook[i], 0)
+            if comparison == -1:
+                return i
+            elif comparison == 0:
+                # If last names are the same, compare the first names
+                if Contact.compareNames(c, self.phonebook[i], 1) == -1:
+                    return i
+        return self.size
     
     def __adjustPhonebook(self, start: int, end = int, dir: str = "f") -> None:
         """
@@ -125,7 +157,16 @@ class ContactList:
                 "b" -> Backward indexing adjustment. For example, elemet at index 1 takes the value of the element at index 0.
         """
         # Complete this Method
-        return 
+        
+        # Adjust the phonebook entries forward
+        if dir == "f":
+            for i in range(start, end):
+                self.phonebook[i] = self.phonebook[i + 1] 
+
+        # Adjust the phonebook entries backward
+        elif dir == "b":
+            for i in range(end, start, -1):
+                self.phonebook[i] = self.phonebook[i - 1]
     
     def deleteContact(self, stdn: str) -> Contact:
         """Finds the contact based on their student number.
