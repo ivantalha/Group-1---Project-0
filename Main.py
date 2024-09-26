@@ -258,4 +258,22 @@ if __name__ == "__main__":
 
                     break
         
-        # elif opt == 3:            
+        elif opt == 3:
+            # Check if the phonebook is empty
+            if pb.size == 0:
+                print("Phonebook is empty. Add a contact first.")
+            else:
+                stdn = input("Enter student number to delete: ")
+
+                try:
+                    stdn = int(stdn)
+                except ValueError:
+                    print("Invalid input. Please enter a numeric student number.")
+                    continue  
+
+                deleted_contact = pb.deleteContact(stdn)
+
+                if deleted_contact:
+                    print("Deleted contact:", deleted_contact)
+                else:
+                    print("Contact not found.")
