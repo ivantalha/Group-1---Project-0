@@ -132,7 +132,93 @@ if __name__ == "__main__":
         opt = int(input("Select Operation: "))
         # Complete your code here
         if opt == 1:
-            pass
+            while True:
+                try:
+                    stdn = int(input("Enter student number: "))
+                except ValueError:
+                    # If the input is not an integer, prompt again
+                    print("Invalid input. Please enter a valid integer.")
+                    continue
+
+                lname = input("Enter surname: ")
+                lname_invalid = False
+                for i in lname:
+                    if not ('a' <= i <= 'z' or 'A' <= i <= 'Z' or i == ' ' or i == '\t'):
+                        lname_invalid = True
+                        break
+                if lname_invalid:
+                    print("Invalid input. Last name should not contain numbers.")
+                    continue
+
+                fname = input("Enter first name: ")
+                fname_invalid = False
+                for i in fname:
+                    if not ('a' <= i <= 'z' or 'A' <= i <= 'Z' or i == ' ' or i == '\t'):
+                        fname_invalid = True
+                        break
+                if fname_invalid:
+                    print("Invalid input. First name should not contain numbers.")
+                    continue
+
+                occupation = input("Enter occupation: ")
+                occupation_invalid = False
+                for i in occupation:
+                    if not ('a' <= i <= 'z' or 'A' <= i <= 'Z' or i == ' ' or i == '\t'):
+                        occupation_invalid = True
+                        break
+                if occupation_invalid:
+                    print("Invalid input. Occupation should not contain numbers.")
+                    continue
+
+                gender = input("Enter gender (M for male, F for female): ")
+                # Normalize gender input to uppercase
+                if gender == 'f':
+                    gender = 'F'
+                elif gender == 'm':
+                    gender = 'M'
+                elif gender == 'M':
+                    gender = 'M'
+                elif gender == 'F':
+                    gender = 'F'
+                else:
+                    print("Invalid input. There are only 2 genders.")
+                    continue
+                if gender.upper() not in {'M', 'F'}:
+                    print("Invalid input. Please enter 'M' for male or 'F' for female.")
+                    continue
+
+                while True:
+                    try:
+                        # Ensure it is a valid ASEAN country code
+                        cc = int(input("Enter country code: "))
+                        if cc in [856, 855, 66, 84, 60, 63, 62, 670, 95, 673, 65]:
+                            break 
+                        else:
+                            print("Invalid country code. Please enter a valid ASEAN country code.")
+                    except ValueError:
+                        print("Invalid input. Please enter a numeric value for the country code.")
+
+                try:
+                    area = int(input("Enter area code: "))
+                    number = int(input("Enter number: "))
+                except ValueError:
+                    print("Invalid input. Please enter numeric values for area code and number.")
+                    continue
+
+                # New Contact object with the provided information
+                contact = Contact(stdn, fname, lname, occupation, gender, cc, area, number)
+                pb.insert(contact)
+
+                add_new_entry = input("Contact added successfully! Do you want to add a new entry? (yes/no): ").lower()
+                while add_new_entry not in ['yes', 'no']:
+                    print("Invalid input. Please enter 'yes' or 'no'.")
+                    add_new_entry = input("Do you want to add a new entry? (yes/no): ").lower()
+
+                if add_new_entry == "yes":
+                    print("Add a new Entry")
+                elif add_new_entry == "no":
+                    break  
+
 
         elif opt == 2:
             # Check if the phonebook is empty 
