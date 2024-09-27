@@ -54,17 +54,6 @@ class ContactList:
             return None
         return self.phonebook[index]
 
-    def getContact(self, student_num: str) -> Contact:
-        """Gets the contact based on given student number. Will return None
-        if contact is not found.
-
-        Args:
-            student_num (str): Student number to base search from.
-
-        Returns:
-            Contact: Contact information.
-        """
-        # Complete this method
     
     def getContact(self, student_num: str) -> Contact:
         """Gets the contact based on given student number. Will return None
@@ -119,7 +108,12 @@ class ContactList:
             Increases the size of this phonebook by two times.
         """
         # Complete this Method
-        return 
+        
+        new_size = len(self.phonebook) * 2
+        new_phonebook = [None] * new_size
+        for i in range(self.size):
+            new_phonebook[i] = self.phonebook[i]
+        self.phonebook = new_phonebook
     
     def insert(self, c : Contact):
         """Inserts new contact at index point.
@@ -215,7 +209,16 @@ class ContactList:
         """
         # Complete this method optionally
         # Correctly completing this method will reward up to 4 bonus points in your MTE.
-        return -1
+        sorted_phonebook = [contact for contact in self.phonebook if contact is not None]
+        
+        # Perform a bubble sort 
+        for i in range(len(sorted_phonebook)):
+            for j in range(0, len(sorted_phonebook) - i - 1):
+                # Compare the two contacts
+                if Contact.compare(sorted_phonebook[j], sorted_phonebook[j + 1], by) == 1:
+                    sorted_phonebook[j], sorted_phonebook[j + 1] = sorted_phonebook[j + 1], sorted_phonebook[j]
+        
+        return sorted_phonebook
         
     def __str__(self, f = None, by: str = 'lname') -> str:
         """
@@ -232,11 +235,15 @@ class ContactList:
         """
         # Complete this method
         s = "<----Phonebook---->"
+        
         if not self.isEmpty():
             # Complete this method.
             # Optionally include viewing contacts in a particular order for up to 1 bonus point in your MTE.
-            print("Not Empty")
+            for contact in self.phonebook:
+                if contact and (f is None or contact.getNumericCountryCode() in f):
+                    s += "\n" + str(contact)
         else:
             s += "\nThis phonebook is currently empty..."
+        
         s += "\n<----End---->"
         return s
