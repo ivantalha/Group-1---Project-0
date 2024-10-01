@@ -1,0 +1,32 @@
+General Requirements:
+1. Insert met.
+2. Print not fully met.
+3. Edit not met.
+4. Delete not fully met.
+
+Bonus Requirements:
+1. sort() method unused and untested. No bonus points will be given.
+2. get() and compare() methods met. Awarded 5 bonus points.
+
+Incorrectness:
+1. Incorrect search by country flow. User should be prompted of all choices then print, rather than prompt and individually print. It does not 
+print anything, nor stop, when entering 12.
+2. Edit does not rearrange phonebook if contact's surname was changed.
+3. Incorrect edit flow. It should ask of the student number first, then display contact details, before prompting which contact field
+should be edited.
+4. Delete does not prompt the user if the existing contact should be deleted.
+5. Insert method is too complicated and did not utilize receiveContactInfo() method.
+6. Incorrect search by country method algorithm. Did not make use of __str__ method.
+7. Incorrect search by surname algorithm. Did not make use of getContactBySurname() method.
+
+Inefficiencies:
+1. Very inefficient insert functionality.
+2. Very inefficient edit functionality.
+3. Most get methods has special cases.
+
+Rubrics Score Breakdown:
+13
+4
+2
+
+TOTAL = 19 / 50 with 5 bonus points for MTE.
